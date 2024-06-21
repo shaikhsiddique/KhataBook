@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhataBook</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="main relative">
+        <nav class="flex items-center justify-between p-4 bg-blue-500 text-white px-10 ">
+            <h2 class="text-2xl font-bold">KhataBook</h2>
+            <div class="flex space-x-4">
+                <a href="/" class="cursor-pointer hover:text-gray-200">Home</a>
+                <a href="/create" class="cursor-pointer hover:text-gray-200">Create new Hisab</a>
+            </div>
+        </nav>
+        <div class="page1-a p-4 mt-40 relative">
+            <h2 class="text-3xl font-bold mb-6 px-2">All Hisab Kitaab</h2>
+            <div class="content-con bg-white shadow rounded-lg p-4 w-72 ">
+                
+                <% files.forEach(function(file) { %>
+                    <div class="content flex items-center justify-between p-4 bg-gray-100 rounded-lg my-2">
+                        <span class="flex items-center space-x-2">
+                            <h3 class="title text-lg font-semibold"><%= file%></h3>
+                            <a  class="Read-icon text-blue-500 hover:text-blue-700" href="/read/<%= file%>">📒</a>
+                        </span>
+                        <span class="flex items-center space-x-2">
+                            <a class="Edit-icon text-green-500 hover:text-green-700" href="/edit/<%= file%>">🖋️</a>
+                            <button onclick="showDeleteWarning('<%= file%>')" class="Delete-icon text-red-500 hover:text-red-700" id="delete" >🗑️</button>
+                        </span>
+                    </div>
+                  <% }); %>
+                
+            </div>
+        </div>
+        <div id="delete-modal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="page1-b bg-white shadow-lg rounded-lg p-6 w-80">
+                <h1 class="text-xl font-bold mb-4">
+                    Are you sure you want to delete <span id="file-to-delete" class="font-semibold"></span>?
+                </h1>
+                <div class="flex justify-between">
+                    <form action="" method="get" id="delete-form">
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700" id="btn-yes">Yes</button>
+                        <button type="button" onclick="hideDeleteWarning()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">No</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const showDeleteWarning = (filename) => {
+            document.getElementById('file-to-delete').innerText = filename;
+            document.getElementById('delete-form').action = `/delete/${filename}`;
+            document.getElementById('delete-modal').classList.remove('hidden');
+        }
+
+        const hideDeleteWarning = () => {
+            document.getElementById('delete-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
