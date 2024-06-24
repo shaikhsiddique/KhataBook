@@ -16,9 +16,9 @@
             </div>
         </nav>
         <div class="page p-8 mt-10 mx-auto max-w-4xl bg-white shadow-md rounded-lg">
-            <form action="/edit/<%= filename%>" method="post" class="space-y-6">
-                <h1 class="title text-3xl font-bold p-4 text-gray-800"><%= filename %></h1>
-                <textarea class="w-full h-48 border-2 border-gray-300 rounded-lg p-4 text-xl focus:outline-none focus:border-blue-500" placeholder="Enter the Hisab" name="data"><%= data %></textarea>
+            <form action="/edit/<%= data._id%>" method="post" class="space-y-6">
+                <h1 class="title text-3xl font-bold p-4 text-gray-800"><%= data.title %></h1>
+                <textarea class="w-full h-48 border-2 border-gray-300 rounded-lg p-4 text-xl focus:outline-none focus:border-blue-500" placeholder="Enter the Hisab" name="content"><%= data.content %></textarea>
                 <button class="bg-blue-500 text-white text-xl py-2 px-6 rounded-lg hover:bg-blue-700">Submit</button>
             </form>
         </div>

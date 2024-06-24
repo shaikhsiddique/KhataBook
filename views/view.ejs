@@ -6,15 +6,6 @@
     <title>KhataBook</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhataBook</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
 <body class="bg-gray-100">
     <div class="main relative">
         <nav class="flex items-center justify-between p-4 bg-blue-500 text-white px-10">
@@ -25,15 +16,18 @@
             </div>
         </nav>
         <div class="page m-12">
-            <h3 class="title text-3xl p-4 text-blue-500 font-semibold"><%= title%></h3>
-            <div class="content w-1/2 h-52 border-2">
-                <h3 class="text-2xl p-8"><%= data%></h3>
-            </div>
-            <a href="/" class="inline-block mt-6 bg-blue-500 text-white text-xl py-2 px-4 rounded-lg hover:bg-blue-700">Back</a>
+            <% if (data) { %>
+                <h3 class="title text-3xl p-4 text-blue-500 font-semibold"><%= data.title %></h3>
+                <h3 class="title text-xl p-4 text-blue-500 font-semibold"><%= new Date(data.date).toDateString() %></h3>
+                <div class="content w-1/2 h-52 border-2">
+                    <h3 class="text-2xl p-8"><%= data.content %></h3>
+                </div>
+                <a href="/" class="inline-block mt-6 bg-blue-500 text-white text-xl py-2 px-4 rounded-lg hover:bg-blue-700">Back</a>
+            <% } else { %>
+                <p>No data found</p>
+                <a href="/" class="inline-block mt-6 bg-blue-500 text-white text-xl py-2 px-4 rounded-lg hover:bg-blue-700">Back to Home</a>
+            <% } %>
         </div>
     </div>
-</body>
-</html>
-
 </body>
 </html>
