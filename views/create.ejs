@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KhataBook</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
     <div class="main relative">
         <nav class="flex items-center justify-between p-4 bg-blue-500 text-white px-10">
@@ -15,14 +17,49 @@
                 <a href="/create" class="cursor-pointer hover:text-gray-200">Create new Hisab</a>
             </div>
         </nav>
-        <h1 class="title text-3xl  mt-10 pl-5 font-bold p-4 text-gray-800 text-center">Creating a new Hisab</h1>
-        <div class="page p-8 mx-auto max-w-4xl bg-white shadow-md rounded-lg">
+        <h1 class="text-3xl mt-10 font-bold text-gray-800 text-center">Creating a new Hisab</h1>
+        <div class="page p-8 mx-auto max-w-4xl bg-white shadow-md rounded-lg mt-6">
             <form action="/create" method="post" class="space-y-6">
-                <input type="text" class="title text-3xl font-bold p-4 text-gray-800 border-2 border-gray-300 rounded-lg w-full focus:outline-none focus:border-blue-500" placeholder="Title" name="title">
-                <textarea class="w-full h-48 border-2 border-gray-300 rounded-lg p-4 text-xl focus:outline-none focus:border-blue-500" placeholder="Enter the Hisab" name="content"></textarea>
-                <button class="bg-blue-500 text-white text-xl py-2 px-6 rounded-lg hover:bg-blue-700">Submit</button>
+                <input type="text" name="title"
+                    class="block w-full p-4 text-3xl font-bold text-gray-800 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Title" required>
+                <textarea name="content"
+                    class="block w-full h-48 p-4 text-xl border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Enter the Hisab" required></textarea>
+                <div class="flex items-center space-x-2">
+                    <input type="checkbox" id="encrypt" class="form-checkbox text-blue-600" name="encrypt">
+                    <label for="encrypt" class="text-lg font-medium text-gray-700">Encrypt this file?</label>
+                </div>
+                <div id="optionalFields" class="hidden">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <input type="checkbox" id="shareable" class="form-checkbox text-blue-600" name="shareable">
+                        <label for="shareable" class="text-lg font-medium text-gray-700">Shareable file?</label>
+                    </div>
+                    <div class="flex items-center space-x-2 my-2">
+                        <input type="checkbox" id="edit" class="form-checkbox text-blue-600" name="editable">
+                        <label for="edit" class="text-lg font-medium text-gray-700">Edit permission?</label>
+                    </div>
+                    <input type="password" name="password my-2"
+                        class="block w-full p-4 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                        placeholder="Password">
+                </div>
+                <button type="submit"
+                    class="block w-full py-4 text-xl font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-700 focus:outline-none">Submit</button>
             </form>
         </div>
     </div>
+    <script>
+        const encryptCheckbox = document.querySelector('#encrypt');
+        const optionalFields = document.querySelector('#optionalFields');
+
+        encryptCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                optionalFields.classList.remove('hidden');
+            } else {
+                optionalFields.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
+
 </html>
