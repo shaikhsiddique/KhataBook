@@ -26,25 +26,21 @@
       <h1 class="text-3xl mt-10 font-bold text-gray-800 text-center">
         Edit Hisab
       </h1>
-      <div
-        class="page p-8 mx-auto max-w-4xl bg-white shadow-md rounded-lg mt-6"
+      <div id="page"
+        class="page p-8 mx-auto max-w-4xl bg-white shadow-md rounded-lg mt-6 hidden"
       >
         <form action="/edit/<%= data._id %>" method="post" class="space-y-6">
-          <input
-            type="text"
-            name="title"
-            value="<%= data.title %>"
-            class="block w-full p-4 text-3xl font-bold text-gray-800 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Title"
-            required
-          />
+          <label class="block w-full p-4 text-3xl font-bold text-gray-800 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+            <%= data.title %>
+          </label>
+          
           <textarea
             name="content"
             class="block w-full h-48 p-4 text-xl border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
             placeholder="Enter the Hisab"
             required
           >
-<%= data.content %></textarea
+          <%= data.content %></textarea
           >
           <div class="flex items-center space-x-2">
             <input
@@ -83,7 +79,50 @@
           </button>
         </form>
       </div>
+      <div id="encrypted">
+        <div class="max-w-md mx-auto my-36 bg-white rounded p-6 shadow-md">
+            <h1 class="text-xl font-bold mb-4" id="message">Enter Password To Edit Hisab</h1>
+    
+            <form>
+                <div class="mb-4">
+                    <label for="hisabname" class="block text-gray-700">Hisab Name: <%= data.title %></label>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700">Password:</label>
+                    <input type="password" placeholder="Enter password" id="password" name="password" class="form-input mt-1 p-1 block w-full" required>
+                    
+                </div>
+    
+                <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200" id="btn">Submit</button>
+            </form>
+        </div>
     </div>
-
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const encryptCheckbox = '<%= data.encrypt %>';
+          
+          // Check if encryptCheckbox evaluates to false
+          if (encryptCheckbox === 'false' || !encryptCheckbox) {
+             
+              document.querySelector('#encrypted').classList.add('hidden');
+              document.querySelector('#page').classList.remove('hidden');
+          } 
+  
+          const button = document.querySelector("#btn");
+          button.addEventListener("click", (e) => {
+              e.preventDefault();
+              const storedPassword = '<%= data.password %>';
+              const password = document.querySelector('#password').value;
+              if (password === storedPassword) {
+                  document.querySelector('#encrypted').classList.add('hidden');
+                  document.querySelector('#page').classList.remove('hidden');
+              } else {
+                  document.querySelector('#message').innerHTML = 'You Entered Wrong Password';
+              }
+          });
+      });
+  </script>
   </body>
 </html>

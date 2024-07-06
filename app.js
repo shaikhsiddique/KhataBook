@@ -105,24 +105,21 @@ app.get("/edit/:id", isLoggedin, async (req, res) => {
 });
 app.post("/edit/:id", isLoggedin, async (req, res) => {
   const id = req.params.id;
-  const { title, content, encrypt, shareable, editable, password } = req.body;
+  const hisab = await hisabModel.findById(id);
 
+
+  const {  content, encrypt, shareable, editable, password } = req.body;
+  const title = hisab.title;
   const encryptBool = encrypt === "on";
   const shareableBool = shareable === "on";
   const editableBool = editable === "on";
 
-  const existingHisab = await hisabModel.findOne({ title}); 
-
-    if(existingHisab){
-      return res.status(400).json({ error: "Title already exists" });
-    }
   const validationResult = ValidateHisabModel({ title, content, password });
   // Check for validation errors
   if (validationResult && validationResult.error) {
     return res.status(400).send({ message: validationResult.error.details[0].message });
   }
 
-  const hisab = await hisabModel.findById(id);
 
   if (!hisab) {
     return res.status(404).send({ error: "Hisab not found" });
@@ -165,7 +162,7 @@ app.post("/create", async (req, res) => {
     }
     // Validate the data
     const validationResult = ValidateHisabModel({ title, content, password });
-
+    
     // Check for validation errors
     if (validationResult && validationResult.error ) {
       return res.status(400).send({ message: validationResult.error.details[0].message });
